@@ -12,7 +12,7 @@ hr{
     height: 400px;
     
     background-color: #e3c7a8;
-    border: 5px solid #d8b89c;
+    border: 6px solid #d8b89c;
     margin:  0 auto;
     display: flex;
     flex-wrap: wrap;
@@ -27,4 +27,69 @@ hr{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.x2 {
+    background-color: #d8cdac;
+    color: white;
+}
+
+.x4 {
+    background-color: #697b60;
+    color: white;
+}
+
+.x8 {
+    background-color: #5e6e56;
+    color: white;
+}
+
+.x16{
+    background-color: #54624c;
+    color: white;
+}
+
+.x32{
+    background-color: #495643;
+    color: white;
+}
+
+.x64{
+    background-color: #3f4939;
+    color: white;
+}
+
+.x128{
+    background-color: #343d30;
+    color: white;
+}
+
+.x256{
+    background-color: #2a3126;
+    color: white;
+}
+
+.x512{
+    background-color: #58492f;
+    color: white;
+}
+
+.x1024{
+    background-color: #4f412a;
+    color: white;
+}
+
+.x2048{
+    background-color: #463a25;
+    color: white;
+}
+
+.x4096 {
+    background-color: #3d3320;
+    color: white;
+}
+
+.x8192 {
+    background-color: #342b1c;
+    color: white;
 }
