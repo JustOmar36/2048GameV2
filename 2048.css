@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+hr{
+    width: 500px;
+}
+
+#board {
+    width: 400px;
+    height: 400px;
+    
+    background-color: #e3c7a8;
+    border: 5px solid #d8b89c;
+    margin:  0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tile {
+    width: 90px;
+    height: 90px;
+    border: 5px solid #d8b89c;
+    font-size: 40px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
