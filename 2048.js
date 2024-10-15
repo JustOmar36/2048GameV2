@@ -16,12 +16,6 @@ function setGame(){
         [0,0,0,0],
         [0,0,0,0]
     ]
-    // board = [
-    //         [2, 4, 8, 16],
-    //         [32, 64, 128, 256],
-    //         [512, 1024, 2048, 4096],
-    //         [2, 4, 8, 16]
-    //     ];
 
     for (let r = 0; r < rows; r++){
         for (let c = 0; c < columns; c++){
@@ -36,6 +30,7 @@ function setGame(){
     }
     initTile()
     initTile()
+
 }
 
 function hasEmptyTile(){
@@ -118,22 +113,26 @@ function updateTile(tile, num){
 
 document.addEventListener("keyup", (e) => {
     if(gameOver) return;
+
+    let boardCopy = copyBoard(board);
+
     if(e.code == "ArrowLeft"){
         slideLeft();
-        initTile();
     }
     if(e.code == "ArrowRight"){
         slideRight();
-        initTile();
     }
     if(e.code == "ArrowUp"){
         slideUp();
-        initTile();
     }
     if(e.code == "ArrowDown"){
         slideDown();
+    }
+
+    if (!boardsAreEqual(board, boardCopy)) {
         initTile();
     }
+
     document.getElementById("score").innerText = score;
 })
 
@@ -167,12 +166,16 @@ function slideLeft(){
         row = slide(row);
         
         board[r] = row;
-
+        
         for (let c = 0; c < columns; c++){
             let tile = document.getElementById(r.toString() + "-" + c.toString());
             let num = board[r][c];
             updateTile(tile, num);
         }
+    }
+
+    if(initBoard != board){
+        initTile();
     }
 }
 
@@ -235,3 +238,21 @@ function slideDown(){
         }
     }
 }
+
+//Check if any moves occurred
+
+function copyBoard(board) {
+    return board.map(row => row.slice());
+}
+
+function boardsAreEqual(board1, board2) {
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+            if (board1[r][c] !== board2[r][c]) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
