@@ -18,6 +18,21 @@ hr{
     flex-wrap: wrap;
 }
 
+#gameOverOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            text-align: center;
+        }
+
 .tile {
     width: 90px;
     height: 90px;

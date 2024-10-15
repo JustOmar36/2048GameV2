@@ -2,6 +2,7 @@ var board;
 var score = 0;
 var rows = 4;
 var columns = 4;
+var gameOver = false;
 
 window.onload = function() {
     setGame(); 
@@ -15,6 +16,12 @@ function setGame(){
         [0,0,0,0],
         [0,0,0,0]
     ]
+    // board = [
+    //         [2, 4, 8, 16],
+    //         [32, 64, 128, 256],
+    //         [512, 1024, 2048, 4096],
+    //         [2, 4, 8, 16]
+    //     ];
 
     for (let r = 0; r < rows; r++){
         for (let c = 0; c < columns; c++){
@@ -42,9 +49,40 @@ function hasEmptyTile(){
     return false
 }
 
+function isGameOver(){
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+            // Check horizontally
+            if (c < 3 && board[r][c] === board[r][c + 1]) {
+                return false;
+            }
+            // Check vertically
+            if (r < 3 && board[r][c] === board[r + 1][c]) {
+                return false;
+            }
+        }
+    }
+
+    // Game over
+    gameOver = true;  // New gameOver flag
+    return true;
+}
+
 function initTile(){
     if(!hasEmptyTile()){
-        return;
+        if(!isGameOver()){
+            return;
+        }else{
+            document.getElementById("gameOverOverlay").style.display = "flex";
+            setTimeout(() => {
+                if (confirm("Game Over! Would you like to reload the page?")) {
+                    window.location.reload(); // Reload the page
+                }
+            }, 1000);
+
+            console.log("Game Over")
+            return;
+        }
     }
 
     let emptyTile = false;
@@ -79,6 +117,7 @@ function updateTile(tile, num){
 }
 
 document.addEventListener("keyup", (e) => {
+    if(gameOver) return;
     if(e.code == "ArrowLeft"){
         slideLeft();
         initTile();
@@ -195,22 +234,4 @@ function slideDown(){
             updateTile(tile, num);
         }
     }
-}
-
-function isGameOver(){
-    for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < columns; c++) {
-            // Check horizontally
-            if (c < 3 && board[r][c] === board[r][c + 1]) {
-                return false;
-            }
-            // Check vertically
-            if (r < 3 && board[r][c] === board[r + 1][c]) {
-                return false;
-            }
-        }
-    }
-
-    // No empty spaces and no mergable cells -> Game over
-    return true;
 }
