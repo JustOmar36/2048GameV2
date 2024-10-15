@@ -27,6 +27,40 @@ function setGame(){
             document.getElementById("board").append(tile);
         }
     }
+    initTile()
+    initTile()
+}
+
+function hasEmptyTile(){
+    for (let r = 0; r < rows; r++){
+        for (let c = 0; c < columns; c++){
+            if(board[r][c] == 0){
+                return true
+            }
+        }
+    }
+    return false
+}
+
+function initTile(){
+    if(!hasEmptyTile()){
+        return;
+    }
+
+    let emptyTile = false;
+
+    while(!emptyTile){
+        let r = Math.floor(Math.random() * rows);
+        let c = Math.floor(Math.random() * columns);
+
+        if(board[r][c] == 0){
+            board[r][c] = 2;
+            let tile = document.getElementById(r.toString() + "-" + c.toString())
+            tile.innerText = "2";
+            tile.classList.add("x2");
+            emptyTile = true;
+        }
+    }
 }
 
 function updateTile(tile, num){
@@ -47,16 +81,21 @@ function updateTile(tile, num){
 document.addEventListener("keyup", (e) => {
     if(e.code == "ArrowLeft"){
         slideLeft();
+        initTile();
     }
     if(e.code == "ArrowRight"){
         slideRight();
+        initTile();
     }
     if(e.code == "ArrowUp"){
         slideUp();
+        initTile();
     }
     if(e.code == "ArrowDown"){
         slideDown();
+        initTile();
     }
+    document.getElementById("score").innerText = score;
 })
 
 function filterZeroes(row){
@@ -156,4 +195,22 @@ function slideDown(){
             updateTile(tile, num);
         }
     }
+}
+
+function isGameOver(){
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+            // Check horizontally
+            if (c < 3 && board[r][c] === board[r][c + 1]) {
+                return false;
+            }
+            // Check vertically
+            if (r < 3 && board[r][c] === board[r + 1][c]) {
+                return false;
+            }
+        }
+    }
+
+    // No empty spaces and no mergable cells -> Game over
+    return true;
 }
